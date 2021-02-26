@@ -19,7 +19,16 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+//new imports
+import PraporPage from '../PraporPage/PraporPage';
+import TherapistPage from '../TherapistPage/TherapistPage';
+import FencePage from '../FencePage/FencePage';
+import SkierPage from '../SkierPage/SkierPage';
+import PeacekeeperPage from '../PeacekeeperPage/PeacekeeperPage';
+import MechanicPage from '../MechanicPage/MechanicPage';
+import RagmanPage from '../RagmanPage/RagmanPage';
+import JaegerPage from '../JaegerPage/JaegerPage';
+import TraderPage from '../TraderPage/TraderPage';
 import './App.css';
 
 function App() {
@@ -100,6 +109,69 @@ function App() {
             authRedirect="/user"
           >
             <LandingPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/prapor"
+          >
+             <PraporPage />
+          </ProtectedRoute>
+      
+          <ProtectedRoute
+            exact
+            path="/therapist"
+          >
+             <TherapistPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/fence"
+          >
+             <FencePage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/skier"
+          >
+             <SkierPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/peacekeeper"
+          >
+             <PeacekeeperPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/mechanic"
+          >
+             <MechanicPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/ragman"
+          >
+             <RagmanPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/jaeger"
+          >
+             <JaegerPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/traders"
+          >
+             <TraderPage />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
