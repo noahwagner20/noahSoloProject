@@ -6,11 +6,33 @@ import React from 'react';
 // or even care what the redux state is
 
 function PraporPage() {
-  return (
-    <div className="container">
-      <p>Prapor Quest Line</p>
-    </div>
-  );
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const store = useSelector(store => store);
+  useEffect(() => {
+      dispatch({ type: 'GET_QUESTS' });
+  }, []);
+
+    const praporsQuests = store.quests.filter(quests => quests.trader_id === store.quests.id)
+
+    return (
+      <>
+          <p>Prapor Quest Line</p>
+          {praporsQuests.map(quests => {
+              return (
+                  <div className="gameCard" key={quests.id}>
+                      <p>{quests.name}</p><br />
+                      <img src={quests.description} /> <br/>
+                  </div> 
+          )
+        })}
+
+    </>
+)
 }
+          
+          
+
 
 export default PraporPage;

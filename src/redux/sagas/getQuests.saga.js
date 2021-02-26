@@ -1,21 +1,21 @@
 import axios from 'axios';
 import { put, takeLatest, } from 'redux-saga/effects';
 
-//makes get request to get all games from the DB
+//makes get request to get all quests from the DB
 function* getAllQuests() {
     try{
     console.log("in get all quests")
-    const games = yield axios.get('/api/quests')
-    yield put ({type: 'SET_QUESTS', payload: games.data})
+    const quests = yield axios.get('/api/quests')
+    yield put ({type: 'SET_QUESTS', payload: quests.data})
     }catch{
         console.log('error in get ')
     }
 }
 
 // listener for actions in this saga
-function* getGamesSaga() {
-    yield takeLatest("GET_GAMES", getAllQuests);
+function* getQuestsSaga() {
+    yield takeLatest("GET_QUESTS", getAllQuests);
     
   }
 
-  export default getGamesSaga;
+  export default getQuestsSaga;
