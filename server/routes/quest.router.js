@@ -21,6 +21,19 @@ router.get('/', (req, res) => {
         })
 });
 
+router.get('/:trader_id', (req, res) => {
+    const trader_id = req.params.trader_id
+    const query = `SELECT * FROM quests WHERE trader_id = ${trader_id}`;
+    pool.query(query)
+        .then(result => {
+            res.send(result.rows)
+            console.log(req.body)
+        }).catch(err => {
+            console.log('Error in get all quests', err)
+            res.sendStatus(500)
+        })
+});
+
 
 
 // /**
