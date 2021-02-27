@@ -6,10 +6,11 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux"
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
+import axios from 'axios';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
@@ -21,6 +22,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 //new imports
 import PraporPage from '../PraporPage/PraporPage';
+import PraporPageItem from '../PraporPage/PraporPageItem';
 import TherapistPage from '../TherapistPage/TherapistPage';
 import FencePage from '../FencePage/FencePage';
 import SkierPage from '../SkierPage/SkierPage';
@@ -37,6 +39,28 @@ function App() {
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log('in useEffect');
+    refreshQuests();
+  }, []);
+
+  const store = useSelector(store => store)
+  let quests = store.questReducer;
+
+  function refreshQuests() {
+    axios({
+      method: 'GET',
+      url: '/api/quests'
+    }).then( response => {
+      // response.data is the array of quests
+      console.log(response.data);
+      dispatch({type: 'SET_QUESTS', payload: [...response.data]});
+    }).catch( error => {
+      console.log('error on GET', error);
+    });
+  }
+
 
   return (
     <Router>
@@ -115,7 +139,7 @@ function App() {
             exact
             path="/prapor"
           >
-             <PraporPage />
+             <PraporPage refreshQuests={refreshQuests} PraporPageList={quests}/>
           </ProtectedRoute>
       
           <ProtectedRoute
