@@ -11,7 +11,8 @@ function PraporPage() {
   
   const dispatch = useDispatch();
   const store = useSelector(store => store)
-  const quests = useSelector(store => store.quests);
+  const quests = useSelector(store => store.questReducer);
+  const praporQuests = quests.filter(quests => quests.trader_id === 1)
 
   useEffect(() => {
     dispatch({ type: 'FETCH_QUESTS', payload: quests.name && quests.description})
@@ -19,7 +20,7 @@ function PraporPage() {
   return (
         <div>
           <h2>Prapor Quest Line</h2>
-          {quests.questsReducer.length > 0 &&
+          {praporQuests.length > 0 &&
             <table>
               <thead>
                 <tr>
@@ -28,8 +29,8 @@ function PraporPage() {
                 </tr>
               </thead>
               <tbody>
-                {quests.questsReducer.map(quests =>
-                  <tr key={category.id}>
+                {praporQuests.map(quests =>
+                  <tr key={quests.id}>
                   <td>{quests.name}</td>
                   <td>{quests.description}</td>
                 </tr>)}
