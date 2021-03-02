@@ -8,8 +8,9 @@ function PraporPageItem(props) {
       method: 'DELETE',
       url: `/quests/${props.quest.id}`,
     })
-    .then( response => { props.refreshQuests() })
-    .catch( error => { console.log('error on delete: ', error) })
+    .then(()=> { 
+      props.refreshQuests() 
+    }).catch( error => { console.log('error on delete: ', error) })
   }
 
   return (

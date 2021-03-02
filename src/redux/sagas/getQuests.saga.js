@@ -12,10 +12,21 @@ function* getAllQuests() {
     }
 }
 
+function* deleteQuests() {
+    try{
+        console.log("Deleting Quest")
+    yield put ({type: 'DELETE_QUESTS', payload: quest.id})
+    } catch {
+        console.log('error in delete')
+    }
+}
+
 // listener for actions in this saga
 function* getQuestsSaga() {
     yield takeLatest("GET_QUESTS", getAllQuests);
-    
+    yield takeLatest("DELETE_QUESTS", deleteQuests);
   }
+
+
 
   export default getQuestsSaga;

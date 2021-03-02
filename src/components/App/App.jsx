@@ -31,6 +31,8 @@ import MechanicPage from '../MechanicPage/MechanicPage';
 import RagmanPage from '../RagmanPage/RagmanPage';
 import JaegerPage from '../JaegerPage/JaegerPage';
 import TraderPage from '../TraderPage/TraderPage';
+import AdminPage from '../AdminPage/AdminPage';
+
 import './App.css';
 
 function App() {
@@ -196,6 +198,13 @@ function App() {
             path="/traders"
           >
              <TraderPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/admin"
+          >
+             <AdminPage />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
