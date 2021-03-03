@@ -72,6 +72,11 @@ VALUES ('jaeger');
 INSERT INTO traders (name)
 VALUES ('fence');
 
+-- localhost:5000/api/quests/complete/11
+-- {
+--    "complete": true,
+--    "quest_id": 10
+-- }
 
 -- INSERT INTO quests (trader_id, name, description)
 -- VALUES ('1', '', 

@@ -70,7 +70,7 @@ router.put('/complete/:id', rejectUnauthenticated, (req, res) => {
    const queryText = `INSERT INTO completion ("user_id", "complete", "quest_id")
    VALUES ($1, $2, $3)`;
 
-    pool.query(queryText, [req.user_id, true, req.body.quest_id])
+    pool.query(queryText, [req.user_id, true, req.params.id])
     .then(() => {
         res.sendStatus(200);
     }).catch(err => {

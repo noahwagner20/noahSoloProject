@@ -23,27 +23,18 @@ import './PraporPage.css';
 // });
 
 function PraporPage() {
+  const history = useHistory();
 
-  function completeTask(event){
-    const completeid = $(event.target).data('completeid');
-    console.log(`Completed Task`);
-
-    $.ajax({
-        method:"PUT",
-        url:`/complete/${completeid}`,
-
-    }).then(function(response){
-        getTask();
-    })
-    $(this).closest('tr').css('background-color', 'green');
-}
   
   const dispatch = useDispatch();
   const store = useSelector(store => store)
   const quests = useSelector(store => store.questReducer);
   const complete = useSelector(store => store.questReducer);
   const praporQuests = quests.filter(quests => quests.tid === 1)
-
+  const completeQuest = (id) => {
+    console.log(id)
+    dispatch({ type: 'COMPLETE_QUEST', payload: id })
+}
   useEffect(() => {
     dispatch({ 
       type: 'FETCH_QUESTS', 
@@ -71,7 +62,7 @@ function PraporPage() {
                   <tr key={quests.id}>
                   <td>{quests.name}</td>
                   <td>{quests.description}</td>
-                  <td>{quests.complete}</td>
+                  <td onClick={() => completeQuest(quests.qid)}></td>
                 </tr>)}
               </tbody>
             </table>
@@ -82,29 +73,3 @@ function PraporPage() {
 }
           
 export default PraporPage;
-
-
-
-
-    // <TableContainer component={Paper}>
-    //   <Table className={classes.table} size="small" aria-label="a dense table">
-    //     <TableHead>
-    //       <TableRow>
-    //         <TableCell>Quest Names</TableCell>
-    //         <TableCell align="right">Description</TableCell>
-    //         <TableCell align="right">Trader ID</TableCell>
-    //       </TableRow>
-    //     </TableHead>
-    //     <TableBody>
-    //       {praporQuests.map((quests) => (
-    //         <TableRow key={quests.id}>
-    //           <TableCell component="th" scope="quests">
-    //             {quests.name}
-    //           </TableCell>
-    //           <TableCell align="right">{quests.description}</TableCell>
-    //           <TableCell align="right">{quests.trader_id}</TableCell>
-    //         </TableRow>
-    //       ))}
-    //     </TableBody>
-    //     </Table>
-    //     </TableContainer>

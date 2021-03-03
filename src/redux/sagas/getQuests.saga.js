@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest, } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery} from 'redux-saga/effects';
 
 //makes get request to get all quests from the DB
 function* getAllQuests() {
@@ -20,13 +20,17 @@ function* deleteQuests() {
         console.log('error in delete')
     }
 }
+function* makeComplete(action) {
+    console.log('complete quest: ', action.payload)
+    yield axios.put(`/api/quests/complete/${action.payload}`)
+}
 
 // listener for actions in this saga
 function* getQuestsSaga() {
     yield takeLatest("GET_QUESTS", getAllQuests);
     yield takeLatest("DELETE_QUESTS", deleteQuests);
+    yield takeLatest("COMPLETE_QUEST", makeComplete);
   }
-
 
 
   export default getQuestsSaga;
