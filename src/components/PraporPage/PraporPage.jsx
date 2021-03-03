@@ -23,16 +23,69 @@ import './PraporPage.css';
 // });
 
 function PraporPage() {
+
+  function completeTask(event){
+    const completeid = $(event.target).data('completeid');
+    console.log(`Completed Task`);
+
+    $.ajax({
+        method:"PUT",
+        url:`/complete/${completeid}`,
+
+    }).then(function(response){
+        getTask();
+    })
+    $(this).closest('tr').css('background-color', 'green');
+}
   
   const dispatch = useDispatch();
   const store = useSelector(store => store)
   const quests = useSelector(store => store.questReducer);
-  const praporQuests = quests.filter(quests => quests.trader_id === 1)
+  const complete = useSelector(store => store.questReducer);
+  const praporQuests = quests.filter(quests => quests.tid === 1)
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_QUESTS', payload: quests.name && quests.description})
+    dispatch({ 
+      type: 'FETCH_QUESTS', 
+      payload: 
+        quests.qid &&
+        quests.name &&
+        quests.description &&
+        quests.trader_id &&
+        complete.complete})
   })
   return (
+        <div>
+          <h2>Prapor Quest Line</h2>
+          {praporQuests.length > 0 &&
+            <table>
+              <thead>
+                <tr>
+                  <th>Quest Name</th>
+                  <th>Description</th>
+                  <th>Completed</th>
+                </tr>
+              </thead>
+              <tbody>
+                {praporQuests.map(quests =>
+                  <tr key={quests.id}>
+                  <td>{quests.name}</td>
+                  <td>{quests.description}</td>
+                  <td>{quests.complete}</td>
+                </tr>)}
+              </tbody>
+            </table>
+          }
+        </div>
+
+  );
+}
+          
+export default PraporPage;
+
+
+
+
     // <TableContainer component={Paper}>
     //   <Table className={classes.table} size="small" aria-label="a dense table">
     //     <TableHead>
@@ -55,30 +108,3 @@ function PraporPage() {
     //     </TableBody>
     //     </Table>
     //     </TableContainer>
-        <div>
-          <h2>Prapor Quest Line</h2>
-          {praporQuests.length > 0 &&
-            <table>
-              <thead>
-                <tr>
-                  <th>Quest Name</th>
-                  <th>Description</th>
-                  <th>Completed</th>
-                </tr>
-              </thead>
-              <tbody>
-                {praporQuests.map(quests =>
-                  <tr key={quests.id}>
-                  <td>{quests.name}</td>
-                  <td>{quests.description}</td>
-                  <td></td>
-                </tr>)}
-              </tbody>
-            </table>
-          }
-        </div>
-
-  );
-}
-          
-export default PraporPage;

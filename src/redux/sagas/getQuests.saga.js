@@ -15,7 +15,7 @@ function* getAllQuests() {
 function* deleteQuests() {
     try{
         console.log("Deleting Quest")
-    yield put ({type: 'DELETE_QUESTS', payload: quest.id})
+    yield put ({type: 'DELETE_QUESTS', payload: quests.id})
     } catch {
         console.log('error in delete')
     }

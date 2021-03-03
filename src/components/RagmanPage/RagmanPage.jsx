@@ -10,12 +10,19 @@ import { useHistory } from "react-router-dom";
 function RagmanPage() {
   
   const dispatch = useDispatch();
-  const store = useSelector(store => store)
   const quests = useSelector(store => store.questReducer);
-  const ragmanQuests = quests.filter(quests => quests.trader_id === 5)
+  const complete = useSelector(store => store.questReducer);
+  const ragmanQuests = quests.filter(quests => quests.tid === 6)
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_QUESTS', payload: quests.name && quests.description})
+    dispatch({ 
+      type: 'FETCH_QUESTS', 
+      payload: 
+        quests.qid &&
+        quests.name &&
+        quests.description &&
+        quests.trader_id &&
+        complete.complete})
   })
   return (
         <div>
@@ -26,6 +33,7 @@ function RagmanPage() {
                 <tr>
                   <th>Quest Name</th>
                   <th>Description</th>
+                  <th>Completed</th>
                 </tr>
               </thead>
               <tbody>
@@ -33,11 +41,13 @@ function RagmanPage() {
                   <tr key={quests.id}>
                   <td>{quests.name}</td>
                   <td>{quests.description}</td>
+                  <td>{quests.complete}</td>
                 </tr>)}
               </tbody>
             </table>
           }
         </div>
+
   );
 }
           
